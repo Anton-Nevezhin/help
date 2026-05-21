@@ -50,7 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/posts/{post}', [AdminController::class, 'getPost'])->name('admin.posts.get');
     Route::put('/admin/posts/{post}', [AdminController::class, 'updatePost'])->name('admin.posts.update');
 
-    // Быстрое создание (для мест и мероприятий)
+    // Быстрое создание (для площадок и программ)
     Route::post('/quick/place', [PlaceController::class, 'quickStore'])->name('quick.place');
     Route::post('/quick/event', [EventController::class, 'quickStore'])->name('quick.event');
 });

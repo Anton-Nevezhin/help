@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Новое мероприятие</title>
+    <title>Новая программа</title>
     <meta charset="utf-8">
 </head>
 <body>
-    <h1>Добавление нового мероприятия</h1>
+    <h1>Новая программа</h1>
     
     <form method="POST" action="{{ route('events.store') }}">
         @csrf

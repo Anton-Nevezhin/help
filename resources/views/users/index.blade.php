@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Пользователи</title>
+    <title>Участники</title>
     <meta charset="utf-8">
 </head>
 <body>
@@ -18,18 +18,16 @@
         </div>
     @endif
 
-    <h1>Список пользователей</h1>
+    <h1>Участники</h1>
     
-    <a href="{{ route('users.create') }}">Добавить пользователя</a>
+    <a href="{{ route('users.create') }}">Добавить участника</a>
     <a href="{{ route('admin.index') }}">В админку</a>
     
     <table border="1" cellpadding="10">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Имя</th>
                 <th>Email</th>
-                <th>Пароль</th>
                 <th>Телефон</th>
                 <th>Телеграм</th>
                 <th>Вацап</th>
@@ -40,10 +38,8 @@
         <tbody>
             @foreach($users as $user)
             <tr>
-                <td>{{ $user->id }}</td>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email ?? '—' }}</td>
-                <td>{{ $user->password}}</td>
                 <td>{{ $user->phone }}</td>
                 <td>{{ $user->telegram_id ?? '—' }}</td>
                 <td>{{ $user->whatsapp_phone ?? '—' }}</td>

@@ -14,7 +14,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
+        $users = User::orderBy('name')->paginate(10);
         return view('users.index', compact('users'));
     }
 
@@ -27,7 +27,7 @@ class UserController extends Controller
     }
 
     /**
-     * Сохранить нового пользователя
+     * Сохранить нового участника
      */
     public function store(Request $request)
     {
@@ -51,16 +51,16 @@ class UserController extends Controller
         $validated['password'] = bcrypt($randomPassword);   // пароль хешируем
         $validated['email'] = $validated['email'] ?? null;  // если email не заполнен — будет null
 
-        // 4. Создаём пользователя в БД
+        // 4. Создаём участника в БД
         $user = User::create($validated);
 
         // 5. Отправляем пароль в SMS
     //    $this->sendSms($request->phone, "Ваш пароль для входа: {$randomPassword}");
 
-    return redirect()->route('users.index')->with('success', 'Пользователь создан. Пароль: ' . $randomPassword);
+    return redirect()->route('users.index')->with('success', 'Участник создан. Пароль: ' . $randomPassword);
 
-        // 6. Возвращаемся к списку пользователей с сообщением
-        return redirect()->route('users.index')->with('success', 'Пользователь создан. Пароль отправлен в SMS.');
+        // 6. Возвращаемся к списку участников с сообщением
+        return redirect()->route('users.index')->with('success', 'Участник создан. Пароль отправлен в SMS.');
     }
 
 
@@ -100,7 +100,7 @@ class UserController extends Controller
 
         $user->update($validated);
 
-        return redirect()->route('users.index')->with('success', 'Пользователь обновлён');
+        return redirect()->route('users.index')->with('success', 'Участник обновлён');
     }
 
     /**
@@ -114,6 +114,6 @@ class UserController extends Controller
             }
 
             $user->delete();
-            return redirect()->route('users.index')->with('success', 'Пользователь удалён');
+            return redirect()->route('users.index')->with('success', 'Участник удалён');
     }
 }

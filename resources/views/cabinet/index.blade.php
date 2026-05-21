@@ -31,7 +31,7 @@
     </div>
 @endforeach
 
-<h2>Актуальные мероприятия</h2>
+<h2>Актуальные программы</h2>
 @foreach($meetings as $meeting)
     <div>
         <strong>{{ $meeting->event->name ?? '—' }}</strong> –

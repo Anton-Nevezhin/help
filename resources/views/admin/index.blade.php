@@ -3,7 +3,7 @@
 @section('content')
 <h1>Панель администратора</h1>
 
-<a href="{{ route('meetings.create') }}">Добавить событие</a>
+<a href="{{ route('meetings.create') }}">Добавить мероприятие</a>
 
 <h2>Новости</h2>
 @if($posts->count())
@@ -103,7 +103,7 @@
     });
 </script>
 
-<h2>Актуальные мероприятия</h2>
+<h2>Актуальные программы</h2>
 @foreach($meetings as $meeting)
     <div>
         {{ $meeting->event->name ?? '—' }} – {{ $meeting->place->name ?? '—' }},
@@ -115,7 +115,7 @@
             <form method="POST" action="{{ route('meetings.destroy', $meeting) }}" style="display: inline;">
                 @csrf
                 @method('DELETE')
-                <button type="submit" class="btn-small" onclick="return confirm('Удалить событие?')">Удалить</button>
+                <button type="submit" class="btn-small" onclick="return confirm('Удалить мероприятие?')">Удалить</button>
             </form>
         </div>
         <hr>

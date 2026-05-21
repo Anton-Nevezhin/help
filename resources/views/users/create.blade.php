@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Новый пользователь</title>
+    <title>Новый участник</title>
     <meta charset="utf-8">
 </head>
 <body>
-    <h1>Добавление нового пользователя</h1>
+    <h1>Новый участник</h1>
     
     <form method="POST" action="{{ route('users.store') }}">
         @csrf

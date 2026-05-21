@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Редактирование мероприятия</title>
+    <title>Редактирование программы</title>
     <meta charset="utf-8">
 </head>
 <body>
-    <h1>Редактирование мероприятия: {{ $event->name }}</h1>
+    <h1>Редактирование программы</h1>
     
     <form method="POST" action="{{ route('events.update', $event) }}">
         @csrf

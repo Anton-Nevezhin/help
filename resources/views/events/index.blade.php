@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Мероприятия</title>
+    <title>Программы</title>
     <meta charset="utf-8">
 </head>
 <body>
-    <h1>Мероприятия</h1>
+    <h1>Программы</h1>
     
-    <a href="{{ route('events.create') }}">Добавить мероприятие</a>
+    <a href="{{ route('events.create') }}">Добавить программу</a>
         <a href="{{ route('admin.index') }}">В админку</a>
     
     <table border="1" cellpadding="10">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Название</th>
                 <th>Автор</th>
                 <th>Описание</th>
@@ -24,7 +23,6 @@
         <tbody>
             @foreach($events as $event)
             <tr>
-                <td>{{ $event->id }}</td>
                 <td>{{ $event->name }}</td>
                 <td>{{ $event->author ?? '—' }}</td>
                 <td>{{ $event->details ?? '—' }}</td>

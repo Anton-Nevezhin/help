@@ -5,8 +5,8 @@
     <meta charset="utf-8">
 </head>
 <body>
-    <h1>Редактирование клиента: {{ $user->name }}</h1>
-    
+    <h1>Редактирование</h1>
+   
     <form method="POST" action="{{ route('users.update', $user) }}">
         @csrf
         @method('PUT')
@@ -44,7 +44,7 @@
         <div>
             <label>Права:</label><br>
             <select name="role">
-                <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>Пользователь</option>
+                <option value="user" {{ $user->role == 'user' ? 'selected' : '' }}>Участник</option>
                 <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Администратор</option>
             </select>
         </div>

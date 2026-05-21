@@ -1,7 +1,7 @@
 DOCTYPE html>
 <html>
 <head>
-    <title>Редактирование учреждения</title>
+    <title>Редактирование площадки</title>
     <meta charset="utf-8">
 </head>
 <body>

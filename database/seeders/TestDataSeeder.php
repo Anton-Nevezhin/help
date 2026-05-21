@@ -25,24 +25,24 @@ class TestDataSeeder extends Seeder
             ]);
         }
 
-        // 40 мероприятий
+        // 40 программ
         $events = [];
         for ($i = 1; $i <= 40; $i++) {
             $events[] = Event::create([
-                'name' => "Мероприятие {$i}",
+                'name' => "Программа {$i}",
                 'author' => "Автор {$i}",
                 'details' => "Описание {$i}",
                 'note' => "Примечание {$i}",
             ]);
         }
 
-        // 40 пользователей
+        // 40 участников
         $users = [];
         for ($i = 1; $i <= 40; $i++) {
             $role = $i % 2 == 0 ? 'admin' : 'user';
 
             $users[] = User::create([
-                'name' => "Пользователь {$i}",
+                'name' => "Участник {$i}",
                 'email' => "user{$i}@test.ru",
                 'phone' => "Телефон {$i}",
                 'telegram_id' => "Телеграм {$i}",
@@ -53,7 +53,7 @@ class TestDataSeeder extends Seeder
             ]);
         }
 
-        // 60 событий
+        // 60 мероприятий
         
         for ($i = 1; $i <= 60; $i++) {
             $place = $places[array_rand($places)];

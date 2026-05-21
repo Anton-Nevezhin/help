@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Новое учреждение</title>
+    <title>Новая площадка</title>
     <meta charset="utf-8">
 </head>
 <body>
-    <h1>Добавление нового учреждения</h1>
+    <h1>Новая площадка</h1>
     
     <form method="POST" action="{{ route('places.store') }}">
         @csrf

@@ -20,25 +20,25 @@
         @csrf
 
         <div class="form-group">
-            <label>Учреждение:</label>
+            <label>Площадка:</label>
             <select name="place_id" id="place_id" required>
-                <option value="">-- Выберите учреждение --</option>
+                <option value="">-- Выберите площадку --</option>
                 @foreach($places as $place)
                     <option value="{{ $place->id }}">{{ $place->name }}</option>
                 @endforeach
             </select>
-            <button type="button" id="quickPlaceBtn">➕ Новое учреждение</button>
+            <button type="button" id="quickPlaceBtn">Новая площадка</button>
         </div>
 
         <div class="form-group">
-            <label>Мероприятие:</label>
+            <label>Программа:</label>
             <select name="event_id" id="event_id" required>
-                <option value="">-- Выберите мероприятие --</option>
+                <option value="">-- Выберите программу --</option>
                 @foreach($events as $event)
                     <option value="{{ $event->id }}">{{ $event->name }}</option>
                 @endforeach
             </select>
-            <button type="button" id="quickEventBtn">➕ Новое мероприятие</button>
+            <button type="button" id="quickEventBtn">Новая программа</button>
         </div>
 
         <div class="form-group">
@@ -60,20 +60,20 @@
         <a href="{{ route('meetings.index') }}">Отмена</a>
     </form>
 
-    <!-- Форма быстрого добавления учреждения -->
+    <!-- Форма быстрого добавления площадки-->
     <div id="quickPlaceForm" class="quick-form">
-        <h3>Быстрое добавление учреждения</h3>
-        <input type="text" id="newPlaceName" placeholder="Название учреждения" required>
+        <h3>Быстрое добавление площадки</h3>
+        <input type="text" id="newPlaceName" placeholder="Название площадки" required>
         <input type="text" id="newPlaceAddress" placeholder="Адрес" required>
         <input type="text" id="newPlacePhone" placeholder="Телефон">
         <button id="saveQuickPlace">Сохранить</button>
         <button id="cancelQuickPlace">Отмена</button>
     </div>
 
-    <!-- Форма быстрого добавления мероприятия -->
+    <!-- Форма быстрого добавления программы -->
     <div id="quickEventForm" class="quick-form">
-        <h3>Быстрое добавление мероприятия</h3>
-        <input type="text" id="newEventName" placeholder="Название мероприятия" required>
+        <h3>Быстрое добавление программы</h3>
+        <input type="text" id="newEventName" placeholder="Название программы" required>
         <input type="text" id="newEventAuthor" placeholder="Автор/Организатор">
         <textarea id="newEventDetails" placeholder="Описание"></textarea>
         <textarea id="newEventNote" placeholder="Примечание"></textarea>
@@ -82,7 +82,7 @@
     </div>
 
     <script>
-        // Показать форму добавления учреждения
+        // Показать форму добавления площадки
         document.getElementById('quickPlaceBtn').onclick = function() {
             document.getElementById('quickPlaceForm').style.display = 'block';
         };
@@ -90,7 +90,7 @@
             document.getElementById('quickPlaceForm').style.display = 'none';
         };
 
-        // AJAX для учреждения
+        // AJAX для площадки
         document.getElementById('saveQuickPlace').onclick = function() {
             let name = document.getElementById('newPlaceName').value;
             let address = document.getElementById('newPlaceAddress').value;
@@ -121,13 +121,13 @@
                     document.getElementById('newPlaceAddress').value = '';
                     document.getElementById('newPlacePhone').value = '';
                 } else {
-                    alert('Ошибка: ' + (data.message || 'Не удалось добавить учреждение'));
+                    alert('Ошибка: ' + (data.message || 'Не удалось добавить площадку'));
                 }
             })
             .catch(error => console.error('Error:', error));
         };
 
-        // Показать форму добавления мероприятия
+        // Показать форму добавления программы
         document.getElementById('quickEventBtn').onclick = function() {
             document.getElementById('quickEventForm').style.display = 'block';
         };
@@ -135,7 +135,7 @@
             document.getElementById('quickEventForm').style.display = 'none';
         };
 
-        // AJAX для мероприятия
+        // AJAX для программы
         document.getElementById('saveQuickEvent').onclick = function() {
             let name = document.getElementById('newEventName').value;
             let author = document.getElementById('newEventAuthor').value;
@@ -143,7 +143,7 @@
             let note = document.getElementById('newEventNote').value;
 
             if (!name) {
-                alert('Название мероприятия обязательно');
+                alert('Название программы обязательно');
                 return;
             }
 
@@ -168,7 +168,7 @@
                     document.getElementById('newEventDetails').value = '';
                     document.getElementById('newEventNote').value = '';
                 } else {
-                    alert('Ошибка: ' + (data.message || 'Не удалось добавить мероприятие'));
+                    alert('Ошибка: ' + (data.message || 'Не удалось добавить программу'));
                 }
             })
             .catch(error => console.error('Error:', error));

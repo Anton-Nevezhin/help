@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Сделка {{ $user->name }}</title>
+    <title>Участник {{ $user->name }}</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
-    <h1>Сделка: {{ $user->name }}</h1>
-    
-    <p><strong>ID:</strong> {{ $user->id }}</p>
+    <h1>{{ $user->name }}</h1>
+
     <p><strong>Имя:</strong> {{ $user->name }}</p>
     <p><strong>Email:</strong> {{ $user->email }}</p>
-    <p><strong>Пароль:</strong> {{ $user->password }}</p>
     <p><strong>Телефон:</strong> {{ $user->phone }}</p>
     <p><strong>Телеграм:</strong> {{ $user->telegram_id }}</p>
     <p><strong>Вацап:</strong> {{ $user->whatsapp_phone }}</p>

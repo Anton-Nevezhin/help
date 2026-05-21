@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Редактирование события</title>
+    <title>Редактирование мероприятия</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
-    <h1>Редактирование события: {{ $meeting->name }}</h1>
+    <h1>Редактирование мероприятия</h1>
     
     <form method="POST" action="{{ route('meetings.update', $meeting) }}">
         @csrf
         @method('PUT')
         
         <div>
-            <label>Учреждение:</label><br>
+            <label>Площадка:</label><br>
             <select name="place_id" required>
                 @foreach($places as $place)
                     <option value="{{ $place->id }}" {{ $meeting->place_id == $place->id ? 'selected' : '' }}>
@@ -24,7 +24,7 @@
         </div>
 
         <div>
-            <label>Мероприятие:</label><br>
+            <label>Программа:</label><br>
             <select name="event_id" required>
                 @foreach($events as $event)
                     <option value="{{ $event->id }}" {{ $meeting->event_id == $event->id ? 'selected' : '' }}>

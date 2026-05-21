@@ -12,9 +12,8 @@ class PlaceController extends Controller
      */
     public function index()
     {
-        $places = Place::paginate(10);
+        $places = Place::orderBy('name')->paginate(10);
         return view('places.index', compact('places'));
-
     }
 
     /**

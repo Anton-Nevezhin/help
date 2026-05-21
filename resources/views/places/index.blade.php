@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Места</title>
+    <title>Площадки</title>
     <meta charset="utf-8">
 </head>
 <body>
-    <h1>Учреждения</h1>
+    <h1>Площадки</h1>
     
-    <a href="{{ route('places.create') }}">Добавить учреждение</a>
+    <a href="{{ route('places.create') }}">Добавить площадку</a>
         <a href="{{ route('admin.index') }}">В админку</a>
     
     <table border="1" cellpadding="10">
         <thead>
             <tr>
-                <th>ID</th>
                 <th>Название</th>
                 <th>Адрес</th>
                 <th>Телефон</th>
@@ -23,7 +22,6 @@
         <tbody>
             @foreach($places as $place)
             <tr>
-                <td>{{ $place->id }}</td>
                 <td>{{ $place->name }}</td>
                 <td>{{ $place->address ?? '—' }}</td>
                 <td>{{ $place->phone ?? '—' }}</td>

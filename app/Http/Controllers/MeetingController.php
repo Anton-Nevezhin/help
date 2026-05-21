@@ -16,7 +16,10 @@ class MeetingController extends Controller
      */
     public function index()
     {
-        $meetings = Meeting::with('place')->paginate(10);
+        $meetings = Meeting::with('place', 'event')
+            ->orderBy('meeting_date')
+            ->orderBy('meeting_time')
+            ->paginate(10);
         return view('meetings.index', compact('meetings'));
     }
 
@@ -48,7 +51,7 @@ public function store(Request $request)
             continue; // пропускаем некорректный ID
         }
 
-        $message = "🆕 Новое мероприятие!\n\n" .
+        $message = "Новая программа!\n\n" .
                 "Название: " . ($meeting->event->name ?? '—') . "\n" .
                 "Место: " . ($meeting->place->name ?? '—') . "\n" .
                 "Дата: {$meeting->meeting_date}\n" .
@@ -58,7 +61,7 @@ public function store(Request $request)
         @file_get_contents("https://api.telegram.org/bot{$token}/sendMessage?chat_id={$user->telegram_id}&text=" . urlencode($message));
     }
 
-    return redirect()->route('admin.index')->with('success', 'Событие создано');
+    return redirect()->route('admin.index')->with('success', 'Мероприятие создано');
 }
     /**
      * Display the specified resource.
