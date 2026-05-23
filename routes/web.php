@@ -20,6 +20,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/register-phone', [App\Http\Controllers\Auth\PhoneRegisterController::class, 'showForm'])->name('register.phone');
+Route::post('/register-phone', [App\Http\Controllers\Auth\PhoneRegisterController::class, 'register']);
+
 // Маршруты для аутентификации (Breeze)
 require __DIR__.'/auth.php';
 

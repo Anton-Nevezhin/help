@@ -44,4 +44,7 @@
             </x-primary-button>
         </div>
     </form>
+
+    <a href="{{ route('register.phone') }}">Регистрация</a>
+
 </x-guest-layout>

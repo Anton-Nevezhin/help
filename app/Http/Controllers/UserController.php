@@ -31,36 +31,22 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // 1. Проверяем данные из формы
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone' => 'required|string|max:20|unique:users,phone',
-            'email' => 'nullable|email|unique:users,email',
-            'telegram_id' => 'nullable|string|regex:/^[0-9]{9,10}$/',
-            'whatsapp_phone' => 'nullable|string',
-            'vk_id' => 'nullable|string',
-        ], [
-            'telegram_id.regex' => 'Telegram ID должен содержать 9-10 цифр',
-        ]);
+     $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'phone' => 'required|string|max:20|unique:users,phone',
+        'email' => 'nullable|email|unique:users,email',
+        'telegram_id' => 'nullable|string|regex:/^[0-9]{9,10}$/',
+        'whatsapp_phone' => 'nullable|string',
+        'vk_id' => 'nullable|string',
+    ]);
 
-        // 2. Генерируем случайный пароль (8 символов)
-        $randomPassword = Str::random(8);
+    $validated['is_registered'] = false;
+    $validated['role'] = 'user';
+    $validated['password'] = '123456';  // пароль будет установлен при регистрации
 
-        // 3. Добавляем недостающие поля
-        $validated['role'] = 'user';                        // роль всегда 'user'
-        $validated['password'] = bcrypt($randomPassword);   // пароль хешируем
-        $validated['email'] = $validated['email'] ?? null;  // если email не заполнен — будет null
+    User::create($validated);
 
-        // 4. Создаём участника в БД
-        $user = User::create($validated);
-
-        // 5. Отправляем пароль в SMS
-    //    $this->sendSms($request->phone, "Ваш пароль для входа: {$randomPassword}");
-
-    return redirect()->route('users.index')->with('success', 'Участник создан. Пароль: ' . $randomPassword);
-
-        // 6. Возвращаемся к списку участников с сообщением
-        return redirect()->route('users.index')->with('success', 'Участник создан. Пароль отправлен в SMS.');
+    return redirect()->route('users.index')->with('success', 'Участник добавлен. Пригласите его зарегистрироваться.');
     }
 
 
