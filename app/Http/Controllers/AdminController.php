@@ -14,14 +14,14 @@ class AdminController extends Controller
 
     public function index()
     {
-        $posts = Post::latest()->get();
-    
-        $meetings = Meeting::whereRaw(
-            "CONCAT(meeting_date, ' ', meeting_time) >= ?",
-            [now()->toDateTimeString()]
-        )->orderBy('meeting_date')->orderBy('meeting_time')->get();
-    
-        return view('admin.index', compact('posts', 'meetings'));
+    $posts = Post::latest()->get();
+
+    $meetings = Meeting::whereDate('meeting_date', '>=', now()->toDateString())
+        ->orderBy('meeting_date')
+        ->orderBy('meeting_time')
+        ->get();
+
+    return view('admin.index', compact('posts', 'meetings'));
     }
 
 

@@ -9,12 +9,11 @@
 @if($posts->count())
     <div id="postsList">
         @foreach($posts as $post)
-            <div>
+            <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
                 <h3>{{ $post->title }}</h3>
                 <p>{{ $post->content }}</p>
                 <button class="editPostBtn" data-id="{{ $post->id }}">Редактировать</button>
                 <button class="deletePostBtn" data-id="{{ $post->id }}">Удалить</button>
-                <hr>
             </div>
         @endforeach
     </div>
@@ -33,7 +32,6 @@
 </div>
 
 <script>
-    // Показать форму добавления
     document.getElementById('newPostBtn').onclick = function() {
         document.getElementById('postForm').style.display = 'block';
         document.getElementById('postTitle').value = '';
@@ -42,12 +40,10 @@
         delete window.currentPostId;
     };
 
-    // Скрыть форму
     document.getElementById('cancelPostBtn').onclick = function() {
         document.getElementById('postForm').style.display = 'none';
     };
 
-    // Сохранение (добавление или редактирование)
     document.getElementById('savePostBtn').onclick = function() {
         const title = document.getElementById('postTitle').value;
         const content = document.getElementById('postContent').value;
@@ -74,7 +70,6 @@
         .catch(err => alert('Ошибка: ' + err));
     };
 
-    // Обработка удаления и открытия редактирования
     document.getElementById('postsList').addEventListener('click', function(e) {
         if (e.target.classList.contains('deletePostBtn')) {
             const id = e.target.getAttribute('data-id');
@@ -105,12 +100,19 @@
 
 <h2>Актуальные программы</h2>
 @foreach($meetings as $meeting)
-    <div>
-        {{ $meeting->event->name ?? '—' }} – {{ $meeting->place->name ?? '—' }},
-        {{ \Carbon\Carbon::parse($meeting->meeting_date)->translatedFormat('d F Y') }}
-        в {{ \Carbon\Carbon::parse($meeting->meeting_time)->format('H:i') }}
+    <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+        <strong>Программа:</strong> {{ $meeting->event->name ?? '—' }}<br>
+        <strong>Автор/Организатор:</strong> {{ $meeting->event->author ?? '—' }}<br>
+        <strong>Описание программы:</strong> {{ $meeting->event->details ?? '—' }}<br>
+        <strong>Примечание к программе:</strong> {{ $meeting->event->note ?? '—' }}<br>
+        <strong>Площадка:</strong> {{ $meeting->place->name ?? '—' }}<br>
+        <strong>Адрес площадки:</strong> {{ $meeting->place->address ?? '—' }}<br>
+        <strong>Телефон площадки:</strong> {{ $meeting->place->phone ?? '—' }}<br>
+        <strong>Дата:</strong> {{ \Carbon\Carbon::parse($meeting->meeting_date)->translatedFormat('d F Y') }}<br>
+        <strong>Время:</strong> {{ \Carbon\Carbon::parse($meeting->meeting_time)->format('H:i') }}<br>
+        <strong>Примечание к мероприятию:</strong> {{ $meeting->note ?: '—' }}
         
-        <div style="margin-top: 5px;">
+        <div style="margin-top: 10px;">
             <a href="{{ route('meetings.edit', $meeting) }}" class="btn-small">Редактировать</a>
             <form method="POST" action="{{ route('meetings.destroy', $meeting) }}" style="display: inline;">
                 @csrf
@@ -118,7 +120,6 @@
                 <button type="submit" class="btn-small" onclick="return confirm('Удалить мероприятие?')">Удалить</button>
             </form>
         </div>
-        <hr>
     </div>
 @endforeach
 @endsection

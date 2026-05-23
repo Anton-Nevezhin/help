@@ -8,7 +8,7 @@
     @csrf
     @method('PUT')
 
-<!-- кнопка для регистрации в телеграм (для сервера в сети)
+<!-- кнопка для регистрации в телеграм (для сервера в сети) -->
     <div>
     <label>Telegram:</label>
     @if(auth()->user()->telegram_id)
@@ -28,12 +28,8 @@
         <input type="text" name="telegram_id" placeholder="Введите ID вручную" value="{{ old('telegram_id', auth()->user()->telegram_id) }}">
         <small><a href="https://t.me/userinfobot" target="_blank">Узнать свой ID</a></small>
     @endif
-</div>-->
+</div>
 
-    <div>
-        <label>Telegram ID:</label>
-        <input type="text" name="telegram_id" value="{{ old('telegram_id', auth()->user() ? auth()->user()->telegram_id : '') }}">
-    </div>
     <div>
         <label>WhatsApp номер:</label>
         <input type="text" name="whatsapp_phone" value="{{ old('whatsapp_phone', auth()->user() ? auth()->user()->whatsapp_phone : '') }}">
@@ -47,23 +43,25 @@
 
 <h2>Новости</h2>
 @foreach($posts as $post)
-    <div style="margin-bottom: 20px;">
+    <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
         <h3>{{ $post->title }}</h3>
         <p>{{ $post->content }}</p>
-        <hr>
     </div>
 @endforeach
 
 <h2>Актуальные программы</h2>
 @foreach($meetings as $meeting)
-    <div>
-        <strong>{{ $meeting->event->name ?? '—' }}</strong> –
-        {{ $meeting->place->name ?? '—' }},
-        {{ \Carbon\Carbon::parse($meeting->meeting_date)->translatedFormat('d F Y') }}
-        в {{ \Carbon\Carbon::parse($meeting->meeting_time)->format('H:i') }}
-        @if($meeting->note)
-            <br><small>{{ $meeting->note }}</small>
-        @endif
+    <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+        <strong>Программа:</strong> {{ $meeting->event->name ?? '—' }}<br>
+        <strong>Автор/Организатор:</strong> {{ $meeting->event->author ?? '—' }}<br>
+        <strong>Описание программы:</strong> {{ $meeting->event->details ?? '—' }}<br>
+        <strong>Примечание к программе:</strong> {{ $meeting->event->note ?? '—' }}<br>
+        <strong>Площадка:</strong> {{ $meeting->place->name ?? '—' }}<br>
+        <strong>Адрес площадки:</strong> {{ $meeting->place->address ?? '—' }}<br>
+        <strong>Телефон площадки:</strong> {{ $meeting->place->phone ?? '—' }}<br>
+        <strong>Дата:</strong> {{ \Carbon\Carbon::parse($meeting->meeting_date)->translatedFormat('d F Y') }}<br>
+        <strong>Время:</strong> {{ \Carbon\Carbon::parse($meeting->meeting_time)->format('H:i') }}<br>
+        <strong>Примечание к мероприятию:</strong> {{ $meeting->note ?: '—' }}
     </div>
 @endforeach
 @endsection
