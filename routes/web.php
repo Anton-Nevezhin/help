@@ -56,4 +56,6 @@ Route::middleware('auth')->group(function () {
     // Быстрое создание (для площадок и программ)
     Route::post('/quick/place', [PlaceController::class, 'quickStore'])->name('quick.place');
     Route::post('/quick/event', [EventController::class, 'quickStore'])->name('quick.event');
+
+    Route::get('/telegram-callback', [App\Http\Controllers\TelegramCallbackController::class, '__invoke'])->name('telegram.callback')->middleware('auth');
 });
