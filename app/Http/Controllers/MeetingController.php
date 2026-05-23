@@ -8,6 +8,7 @@ use App\Models\Place;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
+use App\Jobs\SendTelegramNotification;
 
 class MeetingController extends Controller
 {
@@ -41,24 +42,17 @@ public function store(Request $request)
 {
     $meeting = Meeting::create($request->all());
 
-    // Отправка уведомлений в Telegram
+    // Отправка уведомлений через ОЧЕРЕДЬ (не ждём ответа)
     $users = User::whereNotNull('telegram_id')->get();
-    $token = env('TELEGRAM_BOT_TOKEN');
-
+    
     foreach ($users as $user) {
         // Проверка: ID должен состоять только из цифр и быть длиной 9-10 символов
         if (!preg_match('/^[0-9]{9,10}$/', $user->telegram_id)) {
             continue; // пропускаем некорректный ID
         }
-
-        $message = "Новая программа!\n\n" .
-                "Название: " . ($meeting->event->name ?? '—') . "\n" .
-                "Место: " . ($meeting->place->name ?? '—') . "\n" .
-                "Дата: {$meeting->meeting_date}\n" .
-                "Время: {$meeting->meeting_time}\n" .
-                "Примечание: {$meeting->note}";
-
-        @file_get_contents("https://api.telegram.org/bot{$token}/sendMessage?chat_id={$user->telegram_id}&text=" . urlencode($message));
+        
+        // Отправляем задачу в очередь
+        dispatch(new SendTelegramNotification($user, $meeting));
     }
 
     return redirect()->route('admin.index')->with('success', 'Мероприятие создано');

@@ -36,7 +36,7 @@ class PlaceController extends Controller
         'phone' => 'nullable|string|max:20',
     ], [
         'name.required' => 'Название обязательно для заполнения',
-        'name.unique' => 'Это учреждение уже есть в базе',
+        'name.unique' => 'Эта площадка уже есть в базе',
         'name.max' => 'Название не может быть длиннее 255 символов',
         'address.required' => 'Адрес обязателен для заполнения',
         'phone.max' => 'Телефон не может быть длиннее 20 символов',
