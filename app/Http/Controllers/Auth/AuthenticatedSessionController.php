@@ -29,7 +29,14 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // Перенаправление по роли
+        $user = Auth::user();
+        
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.index');
+        }
+        
+        return redirect()->route('cabinet.index');
     }
 
     /**

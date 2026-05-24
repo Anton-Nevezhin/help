@@ -17,11 +17,24 @@ use App\Http\Controllers\PostController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (auth()->check()) {
+        if (auth()->user()->role === 'admin') {
+            return redirect()->route('admin.index');
+        }
+        return redirect()->route('cabinet.index');
+    }
+    return redirect()->route('login');
 });
 
 Route::get('/register-phone', [App\Http\Controllers\Auth\PhoneRegisterController::class, 'showForm'])->name('register.phone');
 Route::post('/register-phone', [App\Http\Controllers\Auth\PhoneRegisterController::class, 'register']);
+
+Route::get('/test-mail', function () {
+    Mail::raw('Тестовое письмо', function ($message) {
+        $message->to('test@example.com')->subject('Проверка');
+    });
+    return 'Письмо отправлено. Проверь Mailpit на http://localhost:8025';
+});
 
 // Маршруты для аутентификации (Breeze)
 require __DIR__.'/auth.php';
@@ -58,4 +71,5 @@ Route::middleware('auth')->group(function () {
     Route::post('/quick/event', [EventController::class, 'quickStore'])->name('quick.event');
 
     Route::get('/telegram-callback', [App\Http\Controllers\TelegramCallbackController::class, '__invoke'])->name('telegram.callback')->middleware('auth');
+    
 });

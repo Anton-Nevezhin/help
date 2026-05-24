@@ -9,6 +9,7 @@ use App\Models\Event;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use App\Jobs\SendTelegramNotification;
+use App\Jobs\SendEmailNotification;
 
 class MeetingController extends Controller
 {
@@ -53,6 +54,12 @@ public function store(Request $request)
         
         // Отправляем задачу в очередь
         dispatch(new SendTelegramNotification($user, $meeting));
+    }
+
+    // Email уведомления
+    $emailUsers = User::whereNotNull('email')->get();
+    foreach ($emailUsers as $user) {
+        dispatch(new SendEmailNotification($meeting, $user));
     }
 
     return redirect()->route('admin.index')->with('success', 'Мероприятие создано');
