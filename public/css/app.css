@@ -1,0 +1,280 @@
+/* ------------------------------
+   ПЕРЕМЕННЫЕ (ТОЛЬКО 5 ЦВЕТОВ)
+------------------------------ */
+:root {
+    --bg-page: #f5f7fa;
+    --bg-white: #ffffff;
+    --bg-meeting: #e9ecef;
+    --accent: #4361ee;
+    --text: #111111;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.5;
+    background-image: url('/images/help-fon.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(245, 247, 250, 0.7);
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ------------------------------
+   НАВИГАЦИЯ
+------------------------------ */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+nav a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+nav a:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+nav button {
+    background: none;
+    border: none;
+    color: var(--accent);
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 0;
+}
+
+nav button:hover {
+    text-decoration: none;
+    opacity: 0.8;
+}
+
+/* ------------------------------
+   КАРТОЧКИ
+------------------------------ */
+.card-news {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.card-meeting {
+    background: var(--bg-meeting);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.form-card {
+    background: var(--bg-white);
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 500px;
+    margin: 0 auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* Дата и время — ярким цветом */
+.meeting-datetime {
+    color: var(--accent);
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+/* ------------------------------
+   КНОПКИ
+------------------------------ */
+.btn, button, input[type="submit"] {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 21px;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.btn:hover, button:hover {
+    background: #3a56d4;
+    transform: translateY(-1px);
+}
+
+.btn-small {
+    padding: 6px 16px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* ------------------------------
+   ФОРМЫ
+------------------------------ */
+input, select, textarea {
+    font-family: inherit;
+    font-size: 21px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 100%;
+}
+
+label {
+    font-weight: bold;
+    font-size: 21px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+/* ------------------------------
+   ТАБЛИЦЫ
+------------------------------ */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+th {
+    background: var(--bg-page);
+    padding: 12px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 18px;
+    border-bottom: 1px solid #ddd;
+}
+
+td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+/* ------------------------------
+   ЗАГОЛОВКИ
+------------------------------ */
+h1 {
+    font-size: 38px;
+    margin-bottom: 25px;
+    font-weight: bold;
+}
+
+h2 {
+    font-size: 32px;
+    margin: 35px 0 20px;
+    border-left: 5px solid var(--accent);
+    padding-left: 18px;
+    font-weight: bold;
+}
+
+/* ------------------------------
+   ПАГИНАЦИЯ
+------------------------------ */
+.pagination {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 35px 0;
+}
+
+.pagination a, .pagination span {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.pagination a:hover {
+    background: var(--accent);
+    color: white;
+    border-color: var(--accent);
+}
+
+/* ------------------------------
+   ВЫДЕЛЕНИЕ НАЗВАНИЙ
+------------------------------ */
+.place-name, .event-name {
+    font-weight: bold;
+    font-size: 22px;
+    color: var(--accent);
+    margin-bottom: 8px;
+}
+
+/* ------------------------------
+   ОБЩИЕ ССЫЛКИ
+------------------------------ */
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.alert-success {
+    background: rgba(16, 185, 129, 0.1);
+    border-left: 4px solid #10b981;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    color: #10b981;
+}
+
+.alert-danger {
+    background: rgba(239, 68, 68, 0.1);
+    border-left: 4px solid #ef4444;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    color: #ef4444;
+}

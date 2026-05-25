@@ -6,8 +6,17 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    public function run(): void
+//    public function run(): void
+//    {
+//        $this->call(TestDataSeeder::class);
+//    }
+
+    public function run()
     {
-        $this->call(TestDataSeeder::class);
+        $this->call([
+            PlacesTableSeeder::class,
+            EventsTableSeeder::class,
+            MeetingsTableSeeder::class,
+        ]);
     }
 }

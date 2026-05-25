@@ -3,38 +3,40 @@
 @section('content')
 
 <h2>Настройки уведомлений</h2>
-<form method="POST" action="{{ route('cabinet.update') }}">
-    @csrf
-    @method('PUT')
+<div class="card-news">
+    <form method="POST" action="{{ route('cabinet.update') }}">
+        @csrf
+        @method('PUT')
 
-    <div>
-        <label>Telegram:</label>
-        @if(auth()->user()->telegram_id)
-            <button type="button" disabled>Telegram привязан</button>
-        @else
-            <button type="button" id="bindTelegramBtn">Привязать Telegram</button>
-        @endif
-    </div>
+        <div class="form-group">
+            <label>Telegram:</label>
+            @if(auth()->user()->telegram_id)
+                <button type="button" class="btn" disabled>Telegram привязан</button>
+            @else
+                <button type="button" id="bindTelegramBtn" class="btn">Привязать Telegram</button>
+            @endif
+        </div>
 
-    <div>
-        <label>Email:</label>
-        <input type="email" name="email" value="{{ old('email', auth()->user()->email) }}">
-    </div>
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" value="{{ old('email', auth()->user()->email) }}">
+        </div>
 
-    <button type="submit">Сохранить</button>
-</form>
+        <button type="submit" class="btn">Сохранить</button>
+    </form>
+</div>
 
 @foreach($posts as $post)
-    <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
-        <div>{{ $post->title }}</div>
+    <div class="card-news">
+        <div class="post-title" style="font-weight: bold; font-size: 22px;">{{ $post->title }}</div>
         <div>{{ $post->content }}</div>
     </div>
 @endforeach
 
 @foreach($meetings as $meeting)
-    <div style="margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+    <div class="card-meeting">
         @if($meeting->place->name)
-            <div>{{ $meeting->place->name }}</div>
+            <div class="place-name">{{ $meeting->place->name }}</div>
         @endif
         @if($meeting->place->address)
             <div>{{ $meeting->place->address }}</div>
@@ -43,7 +45,7 @@
             <div>{{ $meeting->place->phone }}</div>
         @endif
         @if($meeting->event->name)
-            <div>{{ $meeting->event->name }}</div>
+            <div class="event-name">{{ $meeting->event->name }}</div>
         @endif
         @if($meeting->event->author)
             <div>{{ $meeting->event->author }}</div>
@@ -54,7 +56,7 @@
         @if($meeting->event->note)
             <div>{{ $meeting->event->note }}</div>
         @endif
-        <div>{{ \Carbon\Carbon::parse($meeting->meeting_date)->translatedFormat('d F Y') }} в {{ \Carbon\Carbon::parse($meeting->meeting_time)->format('H:i') }}</div>
+        <div class="meeting-datetime">{{ \Carbon\Carbon::parse($meeting->meeting_date)->translatedFormat('d F Y') }} в {{ \Carbon\Carbon::parse($meeting->meeting_time)->format('H:i') }}</div>
         @if($meeting->note)
             <div>{{ $meeting->note }}</div>
         @endif
