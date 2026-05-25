@@ -33,6 +33,14 @@ class PhoneRegisterController extends Controller
         
         $user->password = Hash::make($request->password);
         $user->is_registered = true;
+
+\Log::info('Before save - is_registered:', ['value' => $user->is_registered]);
+$user->is_registered = true;
+\Log::info('After assign - is_registered:', ['value' => $user->is_registered]);
+$user->save();
+\Log::info('After save - is_registered:', ['value' => $user->is_registered]);
+
+
         $user->save();
         
         auth()->login($user);
