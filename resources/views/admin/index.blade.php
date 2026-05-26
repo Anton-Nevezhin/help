@@ -2,7 +2,10 @@
 
 @section('content')
 
-<a href="{{ route('meetings.create') }}" class="btn">Добавить мероприятие</a>
+<div class="admin-header">
+    <a href="{{ route('meetings.create') }}" class="btn">Добавить мероприятие</a>
+    <button id="newPostBtn" class="btn">Добавить новость</button>
+</div>
 
 @if($posts->count())
     <div id="postsList">
@@ -16,8 +19,6 @@
         @endforeach
     </div>
 @endif
-
-<button id="newPostBtn" class="btn">Добавить новость</button>
 
 <div id="postForm" style="display: none;">
     <div class="form-title" style="font-weight: bold; font-size: 24px; margin-bottom: 15px;">Добавить новость</div>

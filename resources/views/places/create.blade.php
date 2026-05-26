@@ -1,34 +1,33 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Новая площадка</title>
-    <meta charset="utf-8">
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
+
+<div class="form-card">
     <h1>Новая площадка</h1>
-    
+
     <form method="POST" action="{{ route('places.store') }}">
         @csrf
-        
-        <div>
-            <label>Наименование:</label><br>
-            <input type="text" name="name" required>
 
+        <div class="form-group">
+            <label>Наименование:</label>
+            <input type="text" name="name" required>
         </div>
-        
-        <div>
-            <label>Адрес:</label><br>
-            <input type="text" name="address" required>
+
+        <div class="form-group">
+            <label>Адрес:</label>
+            <textarea name="address" rows="3" required>{{ old('address') }}</textarea>
         </div>
-        
-        <div>
-            <label>Телефон:</label><br>
+
+        <div class="form-group">
+            <label>Телефон:</label>
             <input type="text" name="phone">
         </div>
-        
-        <button type="submit">Создать</button>
-        <a href="{{ route('places.index') }}">Отмена</a>
+
+        <div class="form-actions">
+            <button type="submit" class="btn">Создать</button>
+            <a href="{{ route('places.index') }}" class="btn">Отмена</a>
+        </div>
     </form>
-    
-</body>
-</html>
+</div>
+
+@endsection

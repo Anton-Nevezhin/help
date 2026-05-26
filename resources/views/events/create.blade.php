@@ -1,37 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Новая программа</title>
-    <meta charset="utf-8">
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
+
+<div class="form-card">
     <h1>Новая программа</h1>
-    
+
     <form method="POST" action="{{ route('events.store') }}">
         @csrf
-        
-        <div>
-            <label>Название:</label><br>
+
+        <div class="form-group">
+            <label>Название:</label>
             <input type="text" name="name" required>
         </div>
-        
-        <div>
-            <label>Автор:</label><br>
+
+        <div class="form-group">
+            <label>Автор:</label>
             <input type="text" name="author" required>
         </div>
-        
-        <div>
-            <label>Описание:</label><br>
-            <input type="text" name="details">
+
+        <div class="form-group">
+            <label>Описание:</label>
+            <textarea name="details" rows="3"></textarea>
         </div>
-        
-        <div>
-            <label>Примечание:</label><br>
-            <textarea name="note"></textarea>
+
+        <div class="form-group">
+            <label>Примечание:</label>
+            <textarea name="note" rows="2"></textarea>
         </div>
-        
-        <button type="submit">Создать</button>
-        <a href="{{ route('events.index') }}">Отмена</a>
+
+        <div class="form-actions">
+            <button type="submit" class="btn">Создать</button>
+            <a href="{{ route('events.index') }}" class="btn">Отмена</a>
+        </div>
     </form>
-</body>
-</html>
+</div>
+
+@endsection

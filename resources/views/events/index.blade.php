@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Программы</title>
-    <meta charset="utf-8">
-</head>
-<body>
-    <h1>Программы</h1>
-    
-    <a href="{{ route('events.create') }}">Добавить программу</a>
-        <a href="{{ route('admin.index') }}">В админку</a>
-    
-    <table border="1" cellpadding="10">
+@extends('layouts.app')
+
+@section('content')
+
+<div class="admin-header">
+    <a href="{{ route('events.create') }}" class="btn">Добавить программу</a>
+</div>
+
+<div class="card-news">
+    <table>
         <thead>
             <tr>
                 <th>Название</th>
@@ -27,18 +24,25 @@
                 <td>{{ $event->author ?? '—' }}</td>
                 <td>{{ $event->details ?? '—' }}</td>
                 <td>{{ $event->note ?? '—' }}</td>
-                <td>
-                    <a href="{{ route('events.show', $event) }}">Просмотр</a>
-                    <a href="{{ route('events.edit', $event) }}">Редактировать</a>
-                    <form method="POST" action="{{ route('events.destroy', $event) }}" style="display:inline">
+                <td class="actions-cell">
+                    <a href="{{ route('events.show', $event) }}" class="action-link">Просмотр</a>
+                    <a href="{{ route('events.edit', $event) }}" class="action-link">Редактировать</a>
+                    <form method="POST" action="{{ route('events.destroy', $event) }}" style="display: inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" onclick="return confirm('Точно удалить?')">Удалить</button>
+                        <a href="#" class="action-link" onclick="if(confirm('Точно удалить?')) this.closest('form').submit(); return false;">Удалить</a>
                     </form>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-</body>
-</html>
+
+    @if ($events->hasPages())
+        <div class="custom-pagination">
+            {{ $events->appends(request()->query())->links('pagination::tailwind') }}
+        </div>
+    @endif
+</div>
+
+@endsection

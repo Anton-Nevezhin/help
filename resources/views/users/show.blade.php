@@ -1,21 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Участник {{ $user->name }}</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
+
+<div class="form-card">
     <h1>{{ $user->name }}</h1>
 
-    <p><strong>Имя:</strong> {{ $user->name }}</p>
-    <p><strong>Email:</strong> {{ $user->email }}</p>
-    <p><strong>Телефон:</strong> {{ $user->phone }}</p>
-    <p><strong>Телеграм:</strong> {{ $user->telegram_id }}</p>
-    <p><strong>Вацап:</strong> {{ $user->whatsapp_phone }}</p>
-    <p><strong>Вконтакте:</strong> {{ $user->vk_id }}</p>
-    <p><strong>Права:</strong> {{ $user->role }}</p>
-    <a href="{{ route('users.index') }}">Назад к списку</a>
-    <a href="{{ route('users.edit', $user) }}">Редактировать</a>
-</body>
-</html>
+    <div class="view-group">
+        <strong>Имя:</strong> <span>{{ $user->name }}</span>
+    </div>
+    <div class="view-group">
+        <strong>Email:</strong> <span>{{ $user->email ?? '—' }}</span>
+    </div>
+    <div class="view-group">
+        <strong>Телефон:</strong> <span>{{ $user->phone }}</span>
+    </div>
+    <div class="view-group">
+        <strong>Telegram ID:</strong> <span>{{ $user->telegram_id ?? '—' }}</span>
+    </div>
+    <div class="view-group">
+        <strong>Права:</strong> <span>{{ $user->role }}</span>
+    </div>
+
+    <div class="form-actions">
+        <a href="{{ route('users.index') }}" class="btn">Назад</a>
+        <a href="{{ route('users.edit', $user) }}" class="btn">Редактировать</a>
+    </div>
+</div>
+
+@endsection

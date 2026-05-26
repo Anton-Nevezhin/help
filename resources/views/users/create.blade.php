@@ -1,48 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Новый участник</title>
-    <meta charset="utf-8">
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
+
+<div class="form-card">
     <h1>Новый участник</h1>
-    
+
     <form method="POST" action="{{ route('users.store') }}">
         @csrf
-        
-        <div>
-            <label>Имя:</label><br>
+
+        <div class="form-group">
+            <label>Имя:</label>
             <input type="text" name="name" required>
         </div>
-        
-        <div>
-            <label>Email:</label><br>
+
+        <div class="form-group">
+            <label>Email:</label>
             <input type="email" name="email">
         </div>
-        
-        <div>
-            <label>Телефон:</label><br>
+
+        <div class="form-group">
+            <label>Телефон:</label>
             <input type="text" name="phone" required>
         </div>
-        
-        <div>
-            <label>Телеграм:</label><br>
+
+        <div class="form-group">
+            <label>Telegram ID:</label>
             <input type="text" name="telegram_id">
         </div>
 
-        <div>
-            <label>Вацап:</label><br>
-            <input type="text" name="whatsapp_phone">
+        <div class="form-actions">
+            <button type="submit" class="btn">Создать</button>
+            <a href="{{ route('users.index') }}" class="btn">Отмена</a>
         </div>
-
-        <div>
-            <label>Вконтакте:</label><br>
-            <input type="text" name="vk_id">
-        </div>
-
-        
-        <button type="submit">Создать</button>
-        <a href="{{ route('users.index') }}">Отмена</a>
     </form>
-</body>
-</html>
+</div>
+
+@endsection

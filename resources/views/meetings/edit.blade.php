@@ -1,19 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Редактирование мероприятия</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-</head>
-<body>
+@extends('layouts.app')
+
+@section('content')
+
+<div class="form-card">
     <h1>Редактирование мероприятия</h1>
-    
+
     <form method="POST" action="{{ route('meetings.update', $meeting) }}">
         @csrf
         @method('PUT')
-        
-        <div>
-            <label>Площадка:</label><br>
+
+        <div class="form-group">
+            <label>Площадка:</label>
             <select name="place_id" required>
                 @foreach($places as $place)
                     <option value="{{ $place->id }}" {{ $meeting->place_id == $place->id ? 'selected' : '' }}>
@@ -23,8 +20,8 @@
             </select>
         </div>
 
-        <div>
-            <label>Программа:</label><br>
+        <div class="form-group">
+            <label>Программа:</label>
             <select name="event_id" required>
                 @foreach($events as $event)
                     <option value="{{ $event->id }}" {{ $meeting->event_id == $event->id ? 'selected' : '' }}>
@@ -33,24 +30,27 @@
                 @endforeach
             </select>
         </div>
-               
-        <div>
-            <label>Дата:</label><br>
+
+        <div class="form-group">
+            <label>Дата:</label>
             <input type="date" name="meeting_date" value="{{ $meeting->meeting_date }}" required>
         </div>
-        
-        <div>
-            <label>Время:</label><br>
+
+        <div class="form-group">
+            <label>Время:</label>
             <input type="time" name="meeting_time" value="{{ $meeting->meeting_time }}" required>
         </div>
-        
-        <div>
-            <label>Примечание:</label><br>
-            <textarea name="note" rows="4" cols="50">{{ $meeting->note }}</textarea>
+
+        <div class="form-group">
+            <label>Примечание:</label>
+            <textarea name="note" rows="3">{{ $meeting->note }}</textarea>
         </div>
-        
-        <button type="submit">Сохранить изменения</button>
-        <a href="{{ route('meetings.index') }}">Отмена</a>
+
+        <div class="form-actions">
+            <button type="submit" class="btn">Сохранить изменения</button>
+            <a href="{{ route('meetings.index') }}" class="btn">Отмена</a>
+        </div>
     </form>
-</body>
-</html>
+</div>
+
+@endsection

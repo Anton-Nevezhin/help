@@ -1,38 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Участники</title>
-    <meta charset="utf-8">
-</head>
-<body>
+@extends('layouts.app')
 
-    @if(session('error'))
-        <div style="color: red; padding: 10px; border: 1px solid red; margin-bottom: 20px;">
-            {{ session('error') }}
-        </div>
-    @endif
+@section('content')
 
-    @if(session('success'))
-        <div style="color: green; padding: 10px; border: 1px solid green; margin-bottom: 20px;">
-            {{ session('success') }}
-        </div>
-    @endif
+<div class="admin-header">
+    <a href="{{ route('users.create') }}" class="btn">Добавить участника</a>
+    <a href="{{ route('admin.index') }}" class="btn">В админку</a>
+</div>
 
-    <h1>Участники</h1>
-    
-    <a href="{{ route('users.create') }}">Добавить участника</a>
-    <a href="{{ route('admin.index') }}">В админку</a>
-    
-    <table border="1" cellpadding="10">
+@if(session('error'))
+    <div class="alert-danger">{{ session('error') }}</div>
+@endif
+
+@if(session('success'))
+    <div class="alert-success">{{ session('success') }}</div>
+@endif
+
+<div class="card-news">
+    <table>
         <thead>
             <tr>
                 <th>Имя</th>
                 <th>Email</th>
                 <th>Телефон</th>
                 <th>Телеграм</th>
-                <th>Вацап</th>
-                <th>Вконтакте</th>
                 <th>Права</th>
+                <th>Действия</th>
             </tr>
         </thead>
         <tbody>
@@ -42,16 +34,14 @@
                 <td>{{ $user->email ?? '—' }}</td>
                 <td>{{ $user->phone }}</td>
                 <td>{{ $user->telegram_id ?? '—' }}</td>
-                <td>{{ $user->whatsapp_phone ?? '—' }}</td>
-                <td>{{ $user->vk_id ?? '—' }}</td>
                 <td>{{ $user->role }}</td>
-                <td>
-                    <a href="{{ route('users.show', $user) }}">Просмотр</a>
-                    <a href="{{ route('users.edit', $user) }}">Редактировать</a>
-                    <form method="POST" action="{{ route('users.destroy', $user) }}" style="display:inline">
+                <td class="actions-cell">
+                    <a href="{{ route('users.show', $user) }}" class="action-link">Просмотр</a>
+                    <a href="{{ route('users.edit', $user) }}" class="action-link">Редактировать</a>
+                    <form method="POST" action="{{ route('users.destroy', $user) }}" style="display: inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" onclick="return confirm('Точно удалить?')">Удалить</button>
+                        <a href="#" class="action-link" onclick="if(confirm('Точно удалить?')) this.closest('form').submit(); return false;">Удалить</a>
                     </form>
                 </td>
             </tr>
@@ -60,43 +50,10 @@
     </table>
 
     @if ($users->hasPages())
-    @if ($users->onFirstPage())
-        <span>[← Назад]</span>
-    @else
-        <a href="{{ $users->previousPageUrl() }}&per_page={{ request()->get('per_page', 10) }}">[← Назад]</a>
+        <div class="custom-pagination">
+            {{ $users->appends(request()->query())->links('pagination::tailwind') }}
+        </div>
     @endif
-    
-    @php
-        $currentPage = $users->currentPage();
-        $lastPage = $users->lastPage();
-        $start = max(1, $currentPage - 2);
-        $end = min($lastPage, $currentPage + 2);
-    @endphp
-    
-    @if ($start > 1)
-        <a href="{{ $users->url(1) }}&per_page={{ request()->get('per_page', 10) }}">[1]</a>
-        @if ($start > 2) <span>...</span> @endif
-    @endif
-    
-    @for ($i = $start; $i <= $end; $i++)
-        @if ($i == $currentPage)
-            <span><strong>[{{ $i }}]</strong></span>
-        @else
-            <a href="{{ $users->url($i) }}&per_page={{ request()->get('per_page', 10) }}">[{{ $i }}]</a>
-        @endif
-    @endfor
-    
-    @if ($end < $lastPage)
-        @if ($end < $lastPage - 1) <span>...</span> @endif
-        <a href="{{ $users->url($lastPage) }}&per_page={{ request()->get('per_page', 10) }}">[{{ $lastPage }}]</a>
-    @endif
-    
-    @if ($users->hasMorePages())
-        <a href="{{ $users->nextPageUrl() }}&per_page={{ request()->get('per_page', 10) }}">[Вперёд →]</a>
-    @else
-        <span>[Вперёд →]</span>
-    @endif
-@endif
-    
-</body>
-</html>
+</div>
+
+@endsection

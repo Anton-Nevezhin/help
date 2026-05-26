@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Площадки</title>
-    <meta charset="utf-8">
-</head>
-<body>
-    <h1>Площадки</h1>
-    
-    <a href="{{ route('places.create') }}">Добавить площадку</a>
-        <a href="{{ route('admin.index') }}">В админку</a>
-    
-    <table border="1" cellpadding="10">
+@extends('layouts.app')
+
+@section('content')
+
+<div class="admin-header">
+    <a href="{{ route('places.create') }}" class="btn">Добавить площадку</a>
+</div>
+
+<div class="card-news">
+    <table>
         <thead>
             <tr>
                 <th>Название</th>
@@ -25,13 +22,13 @@
                 <td>{{ $place->name }}</td>
                 <td>{{ $place->address ?? '—' }}</td>
                 <td>{{ $place->phone ?? '—' }}</td>
-                <td>
-                    <a href="{{ route('places.show', $place) }}">Просмотр</a>
-                    <a href="{{ route('places.edit', $place) }}">Редактировать</a>
-                    <form method="POST" action="{{ route('places.destroy', $place) }}" style="display:inline">
+                <td class="actions-cell">
+                    <a href="{{ route('places.show', $place) }}" class="action-link">Просмотр</a>
+                    <a href="{{ route('places.edit', $place) }}" class="action-link">Редактировать</a>
+                    <form method="POST" action="{{ route('places.destroy', $place) }}" style="display: inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" onclick="return confirm('Точно удалить?')">Удалить</button>
+                        <a href="#" class="action-link" onclick="if(confirm('Точно удалить?')) this.closest('form').submit(); return false;">Удалить</a>
                     </form>
                 </td>
             </tr>
@@ -40,42 +37,10 @@
     </table>
 
     @if ($places->hasPages())
-    @if ($places->onFirstPage())
-        <span>[← Назад]</span>
-    @else
-        <a href="{{ $places->previousPageUrl() }}&per_page={{ request()->get('per_page', 10) }}">[← Назад]</a>
+        <div class="custom-pagination">
+            {{ $places->appends(request()->query())->links('pagination::tailwind') }}
+        </div>
     @endif
-    
-    @php
-        $currentPage = $places->currentPage();
-        $lastPage = $places->lastPage();
-        $start = max(1, $currentPage - 2);
-        $end = min($lastPage, $currentPage + 2);
-    @endphp
-    
-    @if ($start > 1)
-        <a href="{{ $places->url(1) }}&per_page={{ request()->get('per_page', 10) }}">[1]</a>
-        @if ($start > 2) <span>...</span> @endif
-    @endif
-    
-    @for ($i = $start; $i <= $end; $i++)
-        @if ($i == $currentPage)
-            <span><strong>[{{ $i }}]</strong></span>
-        @else
-            <a href="{{ $places->url($i) }}&per_page={{ request()->get('per_page', 10) }}">[{{ $i }}]</a>
-        @endif
-    @endfor
-    
-    @if ($end < $lastPage)
-        @if ($end < $lastPage - 1) <span>...</span> @endif
-        <a href="{{ $places->url($lastPage) }}&per_page={{ request()->get('per_page', 10) }}">[{{ $lastPage }}]</a>
-    @endif
-    
-    @if ($places->hasMorePages())
-        <a href="{{ $places->nextPageUrl() }}&per_page={{ request()->get('per_page', 10) }}">[Вперёд →]</a>
-    @else
-        <span>[Вперёд →]</span>
-    @endif
-@endif
-</body>
-</html>
+</div>
+
+@endsection
