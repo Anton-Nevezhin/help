@@ -56,13 +56,11 @@
 
 ### 2. Клонирование репозитория
 
-```bash
 git clone https://github.com/anton-nevezhin/help.git
 cd help
 
 ### 3. Установка зависимостей
 
-```bash
 composer install
 ### 4. Настройка окружения
 cp .env.example .env
