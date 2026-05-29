@@ -59,7 +59,7 @@
 ```bash
 git clone https://github.com/anton-nevezhin/help.git
 cd help
-3. Установка зависимостей
+### 3. Установка зависимостей
 bash
 composer install
 4. Настройка окружения
