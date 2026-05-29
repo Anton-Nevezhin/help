@@ -59,6 +59,7 @@
 ```bash
 git clone https://github.com/anton-nevezhin/help.git
 cd help
+
 ### 3. Установка зависимостей
 
 ```bash
