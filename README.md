@@ -66,7 +66,7 @@ composer install
 cp .env.example .env
 php artisan key:generate
 Отредактируйте файл .env:
-## База данных
+### База данных
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -74,11 +74,11 @@ DB_DATABASE=help
 DB_USERNAME=root
 DB_PASSWORD=
 
-## Telegram бот
+### Telegram бот
 TELEGRAM_BOT_TOKEN=ваш_токен
 TELEGRAM_BOT_NAME=имя_бота
 
-## Email (для продакшена укажите свои SMTP)
+### Email (для продакшена укажите свои SMTP)
 MAIL_MAILER=smtp
 MAIL_HOST=smtp.mail.ru
 MAIL_PORT=465
