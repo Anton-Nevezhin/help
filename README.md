@@ -1,66 +1,272 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Help — Система оповещения о мероприятиях для общества инвалидов
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## О проекте
 
-## About Laravel
+Этот проект создавался для **общества инвалидов**, чтобы люди могли получать информацию о предстоящих мероприятиях (спектакли, концерты, встречи, экскурсии) и подписываться на уведомления.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Почему это важно:** Многие люди с инвалидностью не могут постоянно мониторить сайты и соцсети. Им нужен простой способ узнавать о событиях — через Telegram или Email. Администратор добавляет мероприятие один раз, а система сама оповещает всех подписчиков.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Проект разработан на **Laravel 10** с использованием очередей для отправки уведомлений (сайт не тормозит при массовой рассылке).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## Что умеет система
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Для обычного пользователя
+- Вход по телефону и паролю (администратор предварительно добавляет телефон в базу)
+- Личный кабинет с настройками уведомлений (Telegram, Email)
+- Просмотр новостей и предстоящих мероприятий
+- Автоматическое получение уведомлений о новых мероприятиях
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Для администратора
+- Управление пользователями (добавление, редактирование, удаление)
+- Управление площадками (театры, концертные залы и т.д.)
+- Управление программами (название, автор, описание, примечание)
+- Управление мероприятиями (привязка к площадке и программе, дата, время, примечание)
+- Управление новостями (добавление, редактирование, удаление через AJAX)
+- Просмотр всех мероприятий в админке
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Технические возможности
+- Отправка уведомлений в Telegram (через бота)
+- Отправка уведомлений на Email (через SMTP)
+- Отправка через очереди (сайт не виснет при отправке)
+- Тесты (PHPUnit)
+- Адаптивная вёрстка (фоновая картинка, карточки, пагинация)
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Как это работает
 
-### Premium Partners
+1. **Администратор** добавляет пользователя (имя и телефон). Система создаёт временную запись.
+2. **Пользователь** заходит на сайт, нажимает «Регистрация», вводит свой телефон и придумывает пароль.
+3. **Пользователь** в личном кабинете указывает свой Telegram ID (узнать можно у бота @userinfobot) и/или Email.
+4. **Администратор** создаёт мероприятие (площадка, программа, дата, время).
+5. **Система** автоматически отправляет уведомления всем пользователям, у которых указан Telegram ID или Email.
+6. **Пользователь** получает сообщение и приходит на мероприятие.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+---
 
-## Contributing
+## Установка и настройка
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### 1. Требования
+- PHP 8.1 или выше
+- MySQL 5.7 или выше
+- Composer
+- Git
 
-## Code of Conduct
+### 2. Клонирование репозитория
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+git clone https://github.com/anton-nevezhin/help.git
+cd help
+3. Установка зависимостей
+bash
+composer install
+4. Настройка окружения
+bash
+cp .env.example .env
+php artisan key:generate
+Отредактируйте файл .env:
 
-## Security Vulnerabilities
+env
+# База данных
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=help
+DB_USERNAME=root
+DB_PASSWORD=
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Telegram бот
+TELEGRAM_BOT_TOKEN=ваш_токен
+TELEGRAM_BOT_NAME=имя_бота
 
-## License
+# Email (для продакшена укажите свои SMTP)
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mail.ru
+MAIL_PORT=465
+MAIL_USERNAME=ваша_почта@mail.ru
+MAIL_PASSWORD=пароль
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS=ваша_почта@mail.ru
+MAIL_FROM_NAME="Help Project"
+5. База данных
+Создайте базу данных MySQL и выполните миграции:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+bash
+php artisan migrate --seed
+6. Создание администратора
+bash
+php artisan tinker --execute="User::create(['name' => 'Администратор', 'phone' => '1234567890', 'password' => bcrypt('password'), 'role' => 'admin', 'is_registered' => true]);"
+Телефон для входа: 1234567890
+Пароль: password
+
+7. Запуск очереди
+Очередь нужна для отправки уведомлений в фоне. Запустите её в отдельном терминале:
+
+bash
+php artisan queue:work
+Для продакшена рекомендуется настроить Supervisor, чтобы очередь не падала.
+
+8. Запуск сайта
+bash
+php artisan serve
+Сайт будет доступен по адресу http://127.0.0.1:8000
+
+Настройка Telegram бота
+Напишите боту @BotFather в Telegram.
+
+Создайте нового бота командой /newbot.
+
+Получите токен (например, 1234567890:ABCdefGHIjklMNOpqrsTUVwxyz).
+
+Добавьте токен в файл .env:
+
+env
+TELEGRAM_BOT_TOKEN=ваш_токен
+TELEGRAM_BOT_NAME=имя_бота
+Пользователи добавляют свой Telegram ID в личном кабинете. Узнать свой ID можно у бота @userinfobot.
+
+Настройка Email
+Для локальной разработки (без реальной отправки)
+env
+MAIL_MAILER=log
+Письма будут сохраняться в storage/logs/laravel.log
+
+Для реальной отправки (продакшен)
+Укажите свои SMTP-настройки в .env. Например, для хостинга Timeweb:
+
+env
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.timeweb.ru
+MAIL_PORT=587
+MAIL_USERNAME=noreply@ваш-домен.ru
+MAIL_PASSWORD=пароль
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS=noreply@ваш-домен.ru
+MAIL_FROM_NAME="Help Project"
+Запуск тестов
+bash
+php artisan test
+Ожидаемый результат: 3 теста, 5 ассертов — всё зелёное.
+
+Основные маршруты
+URL	Метод	Описание
+/	GET	Редирект на страницу входа
+/login	GET, POST	Вход по телефону и паролю
+/register-phone	GET, POST	Регистрация (только для приглашённых)
+/cabinet	GET	Личный кабинет пользователя
+/cabinet	PUT	Обновление настроек (Email, Telegram)
+/admin	GET	Панель администратора
+/places	CRUD	Управление площадками
+/events	CRUD	Управление программами
+/meetings	CRUD	Управление мероприятиями
+/users	CRUD	Управление пользователями
+/logout	POST	Выход из системы
+Структура базы данных
+Таблица users
+id — первичный ключ
+
+name — имя пользователя
+
+email — email (для уведомлений)
+
+phone — телефон (для входа)
+
+telegram_id — Telegram ID (для уведомлений)
+
+role — роль (user или admin)
+
+is_registered — прошёл ли пользователь регистрацию
+
+Таблица places
+id — первичный ключ
+
+name — название площадки
+
+address — адрес
+
+phone — телефон
+
+Таблица events
+id — первичный ключ
+
+name — название программы
+
+author — автор/организатор
+
+details — описание
+
+note — примечание
+
+Таблица meetings
+id — первичный ключ
+
+place_id — ссылка на площадку
+
+event_id — ссылка на программу
+
+meeting_date — дата мероприятия
+
+meeting_time — время мероприятия
+
+note — примечание
+
+Таблица posts
+id — первичный ключ
+
+title — заголовок новости
+
+content — текст новости
+
+Очереди и уведомления
+Система использует очереди для отправки уведомлений. Это значит, что при создании мероприятия:
+
+Сайт мгновенно сохраняет мероприятие и показывает страницу «Успешно».
+
+Задачи на отправку уведомлений попадают в очередь.
+
+Фоновый процесс (php artisan queue:work) обрабатывает задачи и отправляет сообщения.
+
+Почему это важно: Если уведомлений много (например, 1000 пользователей), сайт не будет висеть 5 минут в ожидании ответа от Telegram.
+
+Как тестировать локально
+Запустите OpenServer (или любой другой локальный сервер).
+
+Создайте базу данных help.
+
+Выполните миграции и сидеры.
+
+Создайте администратора.
+
+Запустите очередь.
+
+Запустите php artisan serve.
+
+Откройте http://127.0.0.1:8000.
+
+Возможные проблемы и решения
+Не отправляются Telegram-уведомления
+Проверьте, что VPN включён (Telegram API в России может быть недоступен).
+
+Проверьте токен бота в .env.
+
+Проверьте, что очередь запущена (php artisan queue:work).
+
+Не отправляются Email-уведомления
+Проверьте SMTP-настройки в .env.
+
+Для локальной разработки используйте MAIL_MAILER=log или Mailpit.
+
+Не удаётся войти
+Убедитесь, что пользователь создан администратором (телефон добавлен в базу).
+
+Пароль пользователь устанавливает при регистрации, а не при создании.
+
+Лицензия
+MIT — проект с открытым исходным кодом. Можете использовать, модифицировать и распространять.
+
+Контакты
+Проект разработан для общества инвалидов. По вопросам сотрудничества обращайтесь к автору репозитория.
+
+GitHub: https://github.com/anton-nevezhin/help
